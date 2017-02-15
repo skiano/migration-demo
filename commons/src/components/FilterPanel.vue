@@ -14,6 +14,8 @@
 
       <button @click="selectAll">Select All</button>
       <button @click="deselectAll">Deselect All</button>
+      <button @click="selectVowels">Select Vowels</button>
+      <button @click="selectConsonants">Select Consonants</button>
 
       <ul>
         <li v-for="option in options">
@@ -28,6 +30,11 @@
 <script>
 import Modal from './Modal'
 import FilteredText from './FilteredText'
+
+const VOWELS = 'AEIOU'
+const CONSONANTS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.replace(new RegExp('[' + VOWELS + ']', 'ig'), '')
+
+console.log(CONSONANTS)
 
 export default {
   name: 'filter-panel',
@@ -66,6 +73,12 @@ export default {
     },
     selectAll () {
       this.pendingSelection = Array.from(this.options)
+    },
+    selectVowels () {
+      this.pendingSelection = VOWELS.split('')
+    },
+    selectConsonants () {
+      this.pendingSelection = CONSONANTS.split('')
     },
     deselectAll () {
       this.pendingSelection = []
