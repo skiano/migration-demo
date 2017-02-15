@@ -64,6 +64,9 @@
                 options: $scope.options
               }
             },
+            updated: function () {
+              console.log('vm updated!');
+            },
             methods: {
               updateAngular: function(options) {
                 this.options = options;
@@ -80,10 +83,9 @@
 
           /* watch angular and notify vue */
           $scope.$watch('options', function(newValue, oldValue) {
-            if (oldValue !== newValue) {
-              Array.prototype.splice.apply(
-                vm.$data.options, [0, vm.$data.options.length].concat(newValue));
-            }
+            console.log('Kick vue:', newValue)
+            Array.prototype.splice.apply(
+              vm.$data.options, [0, vm.$data.options.length].concat(newValue));
           });
 
           /* cleanup */
@@ -133,7 +135,6 @@
     function getRandomInt(min, max) {
       return Math.floor(Math.random() * (max - min + 1)) + min;
     }
-
   </script>
 </body>
 </html>

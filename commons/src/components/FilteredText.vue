@@ -3,27 +3,28 @@
 </template>
 
 <script>
-const vowels = ['A', 'E', 'I', 'O', 'U']
+
+const text = 'A large fawn jumped quickly over white zinc boxes.'
 
 export default {
   name: 'filtered-text',
   props: {
-    filteredVowels: {
+    visibleCharacters: {
       type: Array,
       default () {
-        return ['A', 'E', 'I', 'O', 'U']
+        return 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
       }
     }
   },
   data () {
     return {
-      text: 'A large fawn jumped quickly over white zinc boxes.'
+      text: text
     }
   },
   computed: {
     filteredText () {
-      const remove = vowels.filter(v => !this.filteredVowels.includes(v))
-      return this.text.replace(new RegExp(remove.join('|'), 'ig'), '')
+      return this.text.replace(
+        new RegExp('[^' + this.visibleCharacters.join('') + '\\W]', 'ig'), '')
     }
   }
 }

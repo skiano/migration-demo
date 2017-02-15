@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="example">
-      <filtered-text :filteredVowels="checkedVowels"></filtered-text>
+      <filtered-text :visibleCharacters="checked"></filtered-text>
       <button @click="openFilterModal">Filter Vowels</button>
     </div>
 
@@ -16,7 +16,7 @@
       <button @click="deselectAll">Deselect All</button>
 
       <ul>
-        <li v-for="option in ['A', 'E', 'I', 'O', 'U']">
+        <li v-for="option in options">
           <input type="checkbox" :id="option" :value="option" v-model="pendingSelection">
           <label :for="option">{{option}}</label>
         </li>
@@ -41,32 +41,38 @@ export default {
       default () {
         return ['A', 'E', 'I', 'O', 'U']
       }
+    },
+    selected: {
+      type: Array,
+      default () {
+        return ['A']
+      }
     }
   },
   data () {
     return {
       showFilter: false,
-      checkedVowels: this.options,
-      pendingSelection: []
+      pendingSelection: [],
+      checked: this.selected
     }
   },
   methods: {
     openFilterModal (filter) {
-      this.pendingSelection = [].concat(this.checkedVowels)
+      this.pendingSelection = Array.from(this.checked)
       this.showFilter = !this.showFilter
     },
     closeFilterModal () {
       this.showFilter = false
     },
     selectAll () {
-      this.pendingSelection = [].concat(this.options)
+      this.pendingSelection = Array.from(this.options)
     },
     deselectAll () {
       this.pendingSelection = []
     },
     applyFilter () {
-      this.checkedVowels = [].concat(this.pendingSelection)
-      this.$emit('update', [].concat(this.checkedVowels))
+      this.checked = Array.from(this.pendingSelection)
+      this.$emit('update', Array.from((this.checked)))
     }
   }
 }
