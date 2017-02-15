@@ -3,10 +3,10 @@
 <head>
   <title>Angular Integration</title>
   <script src="https://unpkg.com/vue/dist/vue.js"></script>
-  <script src="node_modules/commons/dist/src/components/FilterPanel.js"></script>
+  <script src="node_modules/commons/dist/src/components/index.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.min.js"></script>
 
-  <link rel="stylesheet" type="text/css" href="node_modules/commons/dist/src/components/FilterPanel.css">
+  <link rel="stylesheet" type="text/css" href="node_modules/commons/dist/src/components/index.css">
 </head>
 <body>
   <div simple-counter-wrapper>
@@ -20,8 +20,11 @@
 
   <script type="text/javascript">
     
+
     Vue.component('simple-counter', {
-      components: {FilterPanel},
+      components: {
+        FilterPanel: Commons.FilterPanel
+      },
       props: ['initialCounterValue'],
       template: '<filter-panel></filter-panel>',
       data: function() {

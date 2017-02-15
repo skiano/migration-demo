@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import FilterPanel from 'commons';
+import { FilterPanel } from 'commons';
 
 export default {
   name: 'hello',

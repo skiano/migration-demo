@@ -1,6 +1,6 @@
 
 /* Import Commons CSS */
-import 'commons/dist/src/components/FilterPanel.css';
+import 'commons/dist/src/components/index.css';
 
 import Vue from 'vue';
 import App from './App';
