@@ -34,6 +34,9 @@ npm run dev
 ## installation
 cd angular && npm install
 
+## link the commons dev work
+npm link ../commons
+
 ## run it
 npm start
 ```
