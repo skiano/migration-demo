@@ -46,3 +46,14 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+
+.example-wrapper {
+  margin: 100px auto;
+  width: 70%;
+}
+
+.example-control {
+  margin-top: 15px;
+}
+

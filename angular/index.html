@@ -6,17 +6,23 @@
   <script src="node_modules/commons/dist/src/components/index.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.min.js"></script>
 
+  <link rel="stylesheet" type="text/css" href="style.css">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css">
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="node_modules/commons/dist/src/components/index.css">
+
 </head>
 <body>
 
   <!-- Using hybrid -->
 
   <div ng-controller="Controller">
-    <ng-filter-panel options="options">
     <other-component/>
+  </div>
+
+  <div ng-controller="Controller">
+    <button ng-click="toggleExample2()">Show / Hide</button>
+    <other-component ng-if="displayExample2"/>
   </div>
 
   <script type="text/javascript">
@@ -27,10 +33,16 @@
     var module = angular.module('app', []);
 
     module.controller('Controller', ['$scope', function($scope) {
-      $scope.options = ['A'];
-      $scope.data = {
-        test: 'hi'
-      };
+      $scope.options = ['A', 'E'];
+      $scope.displayExample2 = true;
+
+      $scope.toggleExample2 = function () {
+        $scope.displayExample2 = !$scope.displayExample2;
+      }
+
+      $scope.randomOptions = function () {
+        $scope.options = shuffle(['A', 'E', 'I', 'O', 'U']).slice(0,getRandomInt(1,5));
+      }
     }]);
 
     /** wrapper around vue component */
@@ -40,10 +52,8 @@
         scope: {
           options: '='
         },
-        link: function(scope, element) {
+        link: function($scope, element) {
           element.prepend('<filter-panel></filter-panel>');
-
-          console.log(scope.options)
 
           var vm = new Vue({
             el: 'filter-panel',
@@ -51,19 +61,35 @@
             template: '<filter-panel :options="options" v-on:update="updateAngular"/>',
             data: function () {
               return {
-                options: scope.options
+                options: $scope.options
               }
             },
             methods: {
-              updateAngular: function(value) {
-                scope.$apply(function() {
-                  scope.options = value;
-                });
+              updateAngular: function(options) {
+                this.options = options;
               }
             }
           });
 
+          /* watch vue and notify angular */
+          var unwatch = vm.$watch('options', function (newOptions) {
+            $scope.$apply(function() {
+              $scope.options = newOptions;
+            });
+          });
+
+          /* watch angular and notify vue */
+          $scope.$watch('options', function(newValue, oldValue) {
+            if (oldValue !== newValue) {
+              Array.prototype.splice.apply(
+                vm.$data.options, [0, vm.$data.options.length].concat(newValue));
+            }
+          });
+
+          /* cleanup */
           element.on('$destroy', function() {
+            console.log('cleaning up!')
+            unwatch();
             vm.$destroy();
           });
         }
@@ -74,13 +100,40 @@
     module.directive('otherComponent', function() {
       return {
         restrict: 'E',
-        transclude: true,
         templateUrl: 'other-component.html'
       }
     });
 
     /** bootstap module */
     angular.bootstrap(document.body, ['app']);
+  </script>
+
+  <script type="text/javascript">
+    /** helper junk */
+
+    function shuffle(array) {
+      var currentIndex = array.length, temporaryValue, randomIndex;
+
+      // While there remain elements to shuffle...
+      while (0 !== currentIndex) {
+
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+      }
+
+      return array;
+    }
+
+    function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
   </script>
 </body>
 </html>

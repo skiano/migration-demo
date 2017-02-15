@@ -16,7 +16,7 @@
       <button @click="deselectAll">Deselect All</button>
 
       <ul>
-        <li v-for="option in options">
+        <li v-for="option in ['A', 'E', 'I', 'O', 'U']">
           <input type="checkbox" :id="option" :value="option" v-model="pendingSelection">
           <label :for="option">{{option}}</label>
         </li>
