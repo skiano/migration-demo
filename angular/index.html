@@ -40,8 +40,11 @@
         $scope.displayExample2 = !$scope.displayExample2;
       }
 
+      var options = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+
       $scope.randomOptions = function () {
-        $scope.options = shuffle(['A', 'E', 'I', 'O', 'U']).slice(0,getRandomInt(1,5));
+        $scope.options = shuffle(options).slice(
+          0, getRandomInt(1, options.length));
       }
     }]);
 
@@ -54,11 +57,11 @@
         },
         link: function($scope, element) {
           element.prepend('<filter-panel></filter-panel>');
-
+          
           var vm = new Vue({
             el: 'filter-panel',
             components: { FilterPanel: Commons.FilterPanel },
-            template: '<filter-panel :options="options" v-on:update="updateAngular"/>',
+            template: '<filter-panel :selected="options" v-on:update="updateAngular"/>',
             data: function () {
               return {
                 options: $scope.options

@@ -2,7 +2,7 @@
   <div>
     <div class="example">
       <filtered-text :visibleCharacters="checked"></filtered-text>
-      <button @click="openFilterModal">Filter Vowels</button>
+      <button @click="openFilterModal">Filter Letters</button>
     </div>
 
     <modal 
@@ -39,13 +39,13 @@ export default {
     options: {
       type: Array,
       default () {
-        return ['A', 'E', 'I', 'O', 'U']
+        return 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
       }
     },
     selected: {
       type: Array,
       default () {
-        return ['A']
+        return 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
       }
     }
   },
@@ -96,17 +96,23 @@ li {
   float: left;
   font-size: 24px;
   cursor: default;
+  margin-bottom: 10px;
   margin-right: 10px;
 }
 
 li:hover {
-  background-color: #eee;
+  color: blue;
 }
 
 label {
+  display: block;
+  float: right;
+  width: 40px;
+  padding: 5px;
 }
 
 input {
-  padding: 50px;
+  position: relative;
+  top: 1px;
 }
 </style>

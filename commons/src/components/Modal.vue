@@ -68,9 +68,9 @@ export default {
   left: 50%;
   background: #fff;
   width: 600px;
-  height: 200px;
+  height: 300px;
   margin-left: -300px;
-  margin-top: -100px;
+  margin-top: -150px;
   z-index: 1000;
 
   -webkit-box-shadow: 1px 2px 16px 0px rgba(0,0,0,0.23);

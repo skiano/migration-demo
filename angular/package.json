@@ -10,5 +10,8 @@
   "license": "ISC",
   "devDependencies": {
     "serve": "^3.3.1"
+  },
+  "dependencies": {
+    "ngVue": "^0.4.0"
   }
 }

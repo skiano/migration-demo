@@ -1,6 +1,6 @@
 <template>
   <div class="shell">
-    <filter-panel :options="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')" :selected="['A']"></filter-panel>
+    <filter-panel></filter-panel>
   </div>
 </template>
 
