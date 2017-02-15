@@ -32,23 +32,21 @@
     /** Setup an angular module */
     var module = angular.module('app', []);
 
+    /** Setup a controller */
     module.controller('Controller', ['$scope', function($scope) {
-      $scope.options = ['A', 'E'];
+      function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+      $scope.options = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').splice(0, getRandomInt(1, 26))
       $scope.displayExample2 = true;
 
       $scope.toggleExample2 = function () {
         $scope.displayExample2 = !$scope.displayExample2;
       }
-
-      var options = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-
-      $scope.randomOptions = function () {
-        $scope.options = shuffle(options).slice(
-          0, getRandomInt(1, options.length));
-      }
     }]);
 
-    /** wrapper around vue component */
+    /** Create wrapper around vue component */
     module.directive('ngFilterPanel', function() {
       return {
         restrict: 'E',
@@ -57,44 +55,29 @@
         },
         link: function($scope, element) {
           element.prepend('<filter-panel></filter-panel>');
-          
+
           var vm = new Vue({
             el: 'filter-panel',
             components: { FilterPanel: Commons.FilterPanel },
-            template: '<filter-panel :selected="options" v-on:update="updateAngular"/>',
+            template: '<filter-panel :initialSelected="options" v-on:update="updateAngular"/>',
             data: function () {
               return {
                 options: $scope.options
               }
             },
-            updated: function () {
-              console.log('vm updated!');
-            },
             methods: {
               updateAngular: function(options) {
-                this.options = options;
+                console.log(options)
+                $scope.$apply(function() {
+                  $scope.options = options;
+                });
               }
             }
           });
 
-          /* watch vue and notify angular */
-          var unwatch = vm.$watch('options', function (newOptions) {
-            $scope.$apply(function() {
-              $scope.options = newOptions;
-            });
-          });
-
-          /* watch angular and notify vue */
-          $scope.$watch('options', function(newValue, oldValue) {
-            console.log('Kick vue:', newValue)
-            Array.prototype.splice.apply(
-              vm.$data.options, [0, vm.$data.options.length].concat(newValue));
-          });
-
           /* cleanup */
           element.on('$destroy', function() {
-            console.log('cleaning up!')
-            unwatch();
+            element.remove('<filter-panel></filter-panel>')
             vm.$destroy();
           });
         }
@@ -135,9 +118,7 @@
       return array;
     }
 
-    function getRandomInt(min, max) {
-      return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
+    
   </script>
 </body>
 </html>
