@@ -17,7 +17,7 @@ npm run build:temp
 ```
 ### for consumer app
 
-```
+```bash
 ## install
 cd consumer && npm install
 
@@ -30,7 +30,7 @@ npm run dev
 
 ### for angular demo
 
-```
+```bash
 ## installation
 cd angular && npm install
 
