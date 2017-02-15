@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="example">
-      <filtered-text :visibleCharacters="checked"></filtered-text>
+      <filtered-text :visibleCharacters="selected"></filtered-text>
       <button @click="openFilterModal">Filter Letters</button>
     </div>
 
@@ -42,7 +42,7 @@ export default {
         return 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
       }
     },
-    selected: {
+    initialSelected: {
       type: Array,
       default () {
         return 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
@@ -53,12 +53,12 @@ export default {
     return {
       showFilter: false,
       pendingSelection: [],
-      checked: this.selected
+      selected: Array.from(this.initialSelected)
     }
   },
   methods: {
     openFilterModal (filter) {
-      this.pendingSelection = Array.from(this.checked)
+      this.pendingSelection = Array.from(this.selected)
       this.showFilter = !this.showFilter
     },
     closeFilterModal () {
@@ -71,8 +71,8 @@ export default {
       this.pendingSelection = []
     },
     applyFilter () {
-      this.checked = Array.from(this.pendingSelection)
-      this.$emit('update', Array.from((this.checked)))
+      this.selected = Array.from(this.pendingSelection)
+      this.$emit('update', Array.from((this.selected)))
     }
   }
 }
