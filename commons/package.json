@@ -6,6 +6,7 @@
   "private": true,
   "main": "./dist/src/components/index.js",
   "scripts": {
+    "build:temp": "vue build src/components/index.js --prod --lib Commons",
     "dev": "node build/dev-server.js",
     "build": "node build/build.js",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",

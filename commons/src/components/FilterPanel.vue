@@ -35,12 +35,19 @@ export default {
     Modal,
     FilteredText
   },
+  props: {
+    options: {
+      type: Array,
+      default () {
+        return ['A', 'E', 'I', 'O', 'U']
+      }
+    }
+  },
   data () {
     return {
       showFilter: false,
-      checkedVowels: ['A', 'E', 'I', 'O', 'U'],
-      pendingSelection: [],
-      options: ['A', 'E', 'I', 'O', 'U']
+      checkedVowels: this.options,
+      pendingSelection: []
     }
   },
   methods: {
@@ -59,6 +66,7 @@ export default {
     },
     applyFilter () {
       this.checkedVowels = [].concat(this.pendingSelection)
+      this.$emit('update', [].concat(this.checkedVowels))
     }
   }
 }

@@ -6,74 +6,80 @@
   <script src="node_modules/commons/dist/src/components/index.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.min.js"></script>
 
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="node_modules/commons/dist/src/components/index.css">
 </head>
 <body>
-  <div simple-counter-wrapper>
-    <simple-counter 
-      ng-non-bindable 
-      v-bind:initial-counter-value="0"
-      v-on:increment="updateAngularScopeProperty">
-    </simple-counter>
-    {{countValue}}
+
+  <!-- Using hybrid -->
+
+  <div ng-controller="Controller">
+    <ng-filter-panel options="options">
+    <other-component/>
   </div>
 
   <script type="text/javascript">
-    
 
-    Vue.component('simple-counter', {
-      components: {
-        FilterPanel: Commons.FilterPanel
-      },
-      props: ['initialCounterValue'],
-      template: '<filter-panel></filter-panel>',
-      data: function() {
-        return {
-          counter: this.initialCounterValue
-        }
-      },
-      methods: {
-        increment: function() {
-          this.counter+=1;
-          this.$emit('increment', this.counter);
+    /** Stub of angular + Vue */
+
+    /** Setup an angular module */
+    var module = angular.module('app', []);
+
+    module.controller('Controller', ['$scope', function($scope) {
+      $scope.options = ['A'];
+      $scope.data = {
+        test: 'hi'
+      };
+    }]);
+
+    /** wrapper around vue component */
+    module.directive('ngFilterPanel', function() {
+      return {
+        restrict: 'E',
+        scope: {
+          options: '='
         },
-        updateAngularScopeProperty: function(value) {
-          scope.$apply(function() {
-            scope.countValue = value;
+        link: function(scope, element) {
+          element.prepend('<filter-panel></filter-panel>');
+
+          console.log(scope.options)
+
+          var vm = new Vue({
+            el: 'filter-panel',
+            components: { FilterPanel: Commons.FilterPanel },
+            template: '<filter-panel :options="options" v-on:update="updateAngular"/>',
+            data: function () {
+              return {
+                options: scope.options
+              }
+            },
+            methods: {
+              updateAngular: function(value) {
+                scope.$apply(function() {
+                  scope.options = value;
+                });
+              }
+            }
+          });
+
+          element.on('$destroy', function() {
+            vm.$destroy();
           });
         }
       }
     });
 
-    // Register our angular module
-    angular.module('app', [])
-      .directive('simpleCounterWrapper', function() {
-        return {
-          restrict: 'A',
-          link: function(scope, $element) {
-            // Vue component interaction logic goes here
-            // Angular scope property
-            scope.countValue = 0;
-            // Create our root instance
-            scope.vue = new Vue({
-              el: 'simple-counter',
-              data: function() {
-                return {
-                  initialCounterValue: scope.countValue
-                }
-              },
-              methods: {
-                updateAngularScopeProperty: function(value) {
-                  scope.$apply(function() {
-                    scope.countValue = value;
-                  });
-                }
-              }
-            });
-          }
-        }
-      });
-    // Start our application with our created module
+    /** example consumer module */
+    module.directive('otherComponent', function() {
+      return {
+        restrict: 'E',
+        transclude: true,
+        templateUrl: 'other-component.html'
+      }
+    });
+
+    /** bootstap module */
     angular.bootstrap(document.body, ['app']);
   </script>
 </body>

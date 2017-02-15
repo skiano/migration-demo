@@ -1,7 +1,10 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <filter-panel></filter-panel>
+    <filter-panel :options="options"></filter-panel>
+    <div class="reversal">
+      <button @click="reverseOptions">Reverse order</button>
+    </div>
   </div>
 </template>
 
@@ -15,8 +18,14 @@ export default {
   },
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App',
+      msg: 'Consuming common components',
+      options: ['A', 'E', 'I', 'O', 'U'],
     };
+  },
+  methods: {
+    reverseOptions() {
+      this.options = this.options.reverse();
+    },
   },
 };
 </script>
@@ -39,5 +48,12 @@ li {
 
 a {
   color: #42b983;
+}
+
+.reversal {
+  z-index: 5000;
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
 }
 </style>
