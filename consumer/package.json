@@ -1,10 +1,9 @@
 {
-  "name": "commons",
+  "name": "consumer",
   "version": "1.0.0",
-  "description": "common library components",
+  "description": "A Vue.js project",
   "author": "Gregory Skiano <gregoryskiano@gmail.com>",
   "private": true,
-  "main": "./dist/src/components/FilterPanel.js",
   "scripts": {
     "dev": "node build/dev-server.js",
     "build": "node build/build.js",
@@ -14,11 +13,9 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
-    "bulma": "^0.3.1",
     "vue": "^2.1.10",
-    "vue-bulma-datepicker": "^1.2.3",
     "vue-router": "^2.2.0",
-    "vue-style-loader": "^2.0.0"
+    "commons": "latest"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.2",
@@ -36,9 +33,9 @@
     "eslint-friendly-formatter": "^2.0.7",
     "eslint-loader": "^1.6.1",
     "eslint-plugin-html": "^2.0.0",
-    "eslint-config-standard": "^6.2.1",
-    "eslint-plugin-promise": "^3.4.0",
-    "eslint-plugin-standard": "^2.0.1",
+    "eslint-config-airbnb-base": "^11.0.1",
+    "eslint-import-resolver-webpack": "^0.8.1",
+    "eslint-plugin-import": "^2.2.0",
     "eventsource-polyfill": "^0.9.6",
     "express": "^4.14.1",
     "extract-text-webpack-plugin": "^2.0.0-rc.2",

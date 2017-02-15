@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Angular Integration</title>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="node_modules/commons/dist/src/components/FilterPanel.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.min.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="node_modules/commons/dist/src/components/FilterPanel.css">
+</head>
+<body>
+  <div simple-counter-wrapper>
+    <simple-counter 
+      ng-non-bindable 
+      v-bind:initial-counter-value="0"
+      v-on:increment="updateAngularScopeProperty">
+    </simple-counter>
+    {{countValue}}
+  </div>
+
+  <script type="text/javascript">
+    
+    Vue.component('simple-counter', {
+      components: {FilterPanel},
+      props: ['initialCounterValue'],
+      template: '<filter-panel></filter-panel>',
+      data: function() {
+        return {
+          counter: this.initialCounterValue
+        }
+      },
+      methods: {
+        increment: function() {
+          this.counter+=1;
+          this.$emit('increment', this.counter);
+        },
+        updateAngularScopeProperty: function(value) {
+          scope.$apply(function() {
+            scope.countValue = value;
+          });
+        }
+      }
+    });
+
+    // Register our angular module
+    angular.module('app', [])
+      .directive('simpleCounterWrapper', function() {
+        return {
+          restrict: 'A',
+          link: function(scope, $element) {
+            // Vue component interaction logic goes here
+            // Angular scope property
+            scope.countValue = 0;
+            // Create our root instance
+            scope.vue = new Vue({
+              el: 'simple-counter',
+              data: function() {
+                return {
+                  initialCounterValue: scope.countValue
+                }
+              },
+              methods: {
+                updateAngularScopeProperty: function(value) {
+                  scope.$apply(function() {
+                    scope.countValue = value;
+                  });
+                }
+              }
+            });
+          }
+        }
+      });
+    // Start our application with our created module
+    angular.bootstrap(document.body, ['app']);
+  </script>
+</body>
+</html>
