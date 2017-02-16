@@ -29,5 +29,8 @@ header {
   right: 0;
   height: 45px;
   z-index: 1000; 
+  background: black;
+  color: #fff;
+  padding: 10px;
 }
 </style>

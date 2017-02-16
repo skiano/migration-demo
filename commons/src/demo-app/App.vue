@@ -1,7 +1,8 @@
 <template>
-  <div id="app">
+  <shell id="app">
+    <navigation></navigation>
     <router-view></router-view>
-  </div>
+  </shell>
 </template>
 
 <script>

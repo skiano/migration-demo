@@ -1,7 +1,6 @@
 <template>
   <div class="shell">
-    <navigation></navigation>
-    <filter-panel></filter-panel>
+    <slot></slot>
   </div>
 </template>
 
@@ -10,7 +9,7 @@
   import Navigation from './Nav'
 
   export default {
-    name: 'hello',
+    name: 'shell',
     components: {
       Navigation,
       FilterPanel
