@@ -1,11 +1,23 @@
 <template>
-  <header>hello</header>
+  <header>hello, you are {{loggedInState}}</header>
 </template>
 
 <script>
-export default {
-  name: 'navigation'
-}
+  import {mapState} from 'vuex'
+
+  export default {
+    name: 'navigation',
+    data () {
+      return {
+        // data for this component
+      }
+    },
+    computed: {
+      ...mapState('commons/user', {
+        loggedInState: state => state.loggedIn ? 'Logged in' : 'Logged out'
+      })
+    }
+  }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

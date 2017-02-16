@@ -3,32 +3,26 @@
 </template>
 
 <script>
-
-const text = 'A large fawn jumped quickly over white zinc boxes.'
-
-export default {
-  name: 'filtered-text',
-  props: {
-    visibleCharacters: {
-      type: Array,
-      default () {
-        return 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
+  export default {
+    name: 'filtered-text',
+    props: {
+      visibleCharacters: {
+        type: Array,
+        required: true
+      }
+    },
+    data () {
+      return {
+        text: 'A large fawn jumped quickly over white zinc boxes.'
+      }
+    },
+    computed: {
+      filteredText () {
+        return this.text.replace(
+          new RegExp('[^' + this.visibleCharacters.join('') + '\\W]', 'ig'), '')
       }
     }
-  },
-  data () {
-    return {
-      text: text
-    }
-  },
-  computed: {
-    filteredText () {
-      return this.text.replace(
-        new RegExp('[^' + this.visibleCharacters.join('') + '\\W]', 'ig'), '')
-    }
   }
-}
-
 </script>
 
 <style scoped>

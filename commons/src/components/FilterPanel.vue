@@ -1,14 +1,16 @@
 <template>
   <div>
     <div class="example">
-      <filtered-text :visibleCharacters="selected"></filtered-text>
-      <button @click="openFilterModal">Filter Letters</button>
+      <filtered-text :visibleCharacters="selected"/>
+      <button @click="openFilterModal">
+        Filter Letters
+      </button>
     </div>
 
-    <modal 
-      v-bind:visible="showFilter"
+    <modal
       v-on:close="closeFilterModal"
       v-on:confirm="applyFilter"
+      :visible="showFilter"
       title="Select vowels"
       confirmText="apply">
 
@@ -28,110 +30,98 @@
 </template>
 
 <script>
-import Modal from './Modal'
-import FilteredText from './FilteredText'
-import {mapState} from 'vuex'
+  import Modal from './Modal'
+  import FilteredText from './FilteredText'
 
-const VOWELS = 'AEIOU'
-const CONSONANTS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.replace(new RegExp('[' + VOWELS + ']', 'ig'), '')
+  const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+  const VOWELS = 'AEIOU'
+  const CONSONANTS = ALPHABET.replace(new RegExp('[' + VOWELS + ']', 'ig'), '')
 
-console.log(CONSONANTS)
-
-export default {
-  name: 'filter-panel',
-  components: {
-    Modal,
-    FilteredText
-  },
-  props: {
-    options: {
-      type: Array,
-      default () {
-        return 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
+  export default {
+    name: 'filter-panel',
+    components: {
+      Modal,
+      FilteredText
+    },
+    props: {
+      initialSelected: {
+        type: Array,
+        default () {
+          return ALPHABET.split('')
+        }
       }
     },
-    initialSelected: {
-      type: Array,
-      default () {
-        return 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
+    data () {
+      return {
+        showFilter: false,
+        pendingSelection: [],
+        options: ALPHABET.split(''),
+        selected: Array.from(this.initialSelected)
       }
-    }
-  },
-  data () {
-    return {
-      showFilter: false,
-      pendingSelection: [],
-      selected: Array.from(this.initialSelected)
-    }
-  },
-  computed: {
-    ...mapState('commons/user', {
-      loggedIn: state => state.loggedIn
-    })
-  },
-  methods: {
-    openFilterModal (filter) {
-      this.pendingSelection = Array.from(this.selected)
-      this.showFilter = !this.showFilter
     },
-    closeFilterModal () {
-      this.showFilter = false
-    },
-    selectAll () {
-      this.pendingSelection = Array.from(this.options)
-    },
-    selectVowels () {
-      this.pendingSelection = VOWELS.split('')
-    },
-    selectConsonants () {
-      this.pendingSelection = CONSONANTS.split('')
-    },
-    deselectAll () {
-      this.pendingSelection = []
-    },
-    applyFilter () {
-      this.selected = Array.from(this.pendingSelection)
-      this.$emit('update', Array.from((this.selected)))
+    methods: {
+      openFilterModal (filter) {
+        this.showFilter = !this.showFilter
+        this.pendingSelection = Array.from(this.selected)
+      },
+      closeFilterModal () {
+        this.showFilter = false
+      },
+      selectAll () {
+        this.pendingSelection = ALPHABET.split('')
+      },
+      selectVowels () {
+        this.pendingSelection = VOWELS.split('')
+      },
+      selectConsonants () {
+        this.pendingSelection = CONSONANTS.split('')
+      },
+      deselectAll () {
+        this.pendingSelection = []
+      },
+      applyFilter () {
+        this.selected = Array.from(this.pendingSelection)
+        this.$emit('update', Array.from((this.selected)))
+      }
     }
   }
-}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.example {
-  background: #ccc;
-  padding: 30px;
-  text-align: center;
-}
+  .example {
+    background: #ccc;
+    padding: 30px;
+    text-align: center;
+  }
 
-ul {
-  margin: 15px 0;
-  overflow: hidden;
-}
+  ul {
+    margin: 15px 0;
+    overflow: hidden;
+  }
 
-li {
-  list-style-type: none;
-  float: left;
-  font-size: 24px;
-  cursor: default;
-  margin-bottom: 10px;
-  margin-right: 10px;
-}
+  li {
+    list-style-type: none;
+    float: left;
+    font-size: 24px;
+    cursor: default;
+    margin-bottom: 10px;
+    margin-right: 10px;
+  }
 
-li:hover {
-  color: blue;
-}
+  li:hover {
+    color: blue;
+  }
 
-label {
-  display: block;
-  float: right;
-  width: 40px;
-  padding: 5px;
-}
+  label {
+    display: block;
+    float: right;
+    width: 40px;
+    padding: 5px;
+  }
 
-input {
-  position: relative;
-  top: 1px;
-}
+  input {
+    position: relative;
+    top: 1px;
+  }
 </style>
