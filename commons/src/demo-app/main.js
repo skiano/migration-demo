@@ -4,7 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
-import Commons from '../plugin'
+import Commons from '../commons-plugin'
 
 Vue.use(Commons, { store })
 
