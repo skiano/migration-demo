@@ -3,6 +3,11 @@ ng1 -> vue demo
 
 ## Setup and working
 
+```bash
+## install the cli
+npm install vue-cli -g
+```
+
 ### For commons
 
 ```bash
