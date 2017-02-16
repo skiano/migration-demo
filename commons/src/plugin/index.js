@@ -1,18 +1,12 @@
-import FilterPanel from './components/FilterPanel'
 import storeModule from './store'
-
-function addComponents (Vue, components) {
-  components.forEach(c => Vue.component(c.name, c))
-}
+import components from './components'
 
 function install (Vue, { store }) {
   if (install.installed) return
   install.installed = true
 
   /** Register all public components */
-  addComponents(Vue, [
-    FilterPanel
-  ])
+  components.forEach(c => Vue.component(c.name, c))
 
   /** Install commons store as a namespaced module in apps vuex instance */
   try {

@@ -1,7 +1,7 @@
 import FilterPanel from './FilterPanel'
 import Shell from './Shell'
 
-export {
+export default [
   Shell,
   FilterPanel
-}
+]
