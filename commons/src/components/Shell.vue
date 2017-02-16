@@ -1,15 +1,20 @@
 <template>
   <div class="shell">
+    <navigation></navigation>
     <filter-panel></filter-panel>
   </div>
 </template>
 
 <script>
 import FilterPanel from './FilterPanel'
+import Navigation from './Nav'
 
 export default {
   name: 'hello',
-  components: { FilterPanel }
+  components: {
+    Navigation,
+    FilterPanel
+  }
 }
 </script>
 

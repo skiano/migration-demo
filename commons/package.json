@@ -19,7 +19,8 @@
     "vue": "^2.1.10",
     "vue-bulma-datepicker": "^1.2.3",
     "vue-router": "^2.2.0",
-    "vue-style-loader": "^2.0.0"
+    "vue-style-loader": "^2.0.0",
+    "vuex": "^2.1.2"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.2",

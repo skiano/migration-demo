@@ -30,6 +30,7 @@
 <script>
 import Modal from './Modal'
 import FilteredText from './FilteredText'
+import {mapState} from 'vuex'
 
 const VOWELS = 'AEIOU'
 const CONSONANTS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.replace(new RegExp('[' + VOWELS + ']', 'ig'), '')
@@ -62,6 +63,11 @@ export default {
       pendingSelection: [],
       selected: Array.from(this.initialSelected)
     }
+  },
+  computed: {
+    ...mapState('commons/user', {
+      loggedIn: state => state.loggedIn
+    })
   },
   methods: {
     openFilterModal (filter) {
