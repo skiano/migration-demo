@@ -23,15 +23,25 @@
 
     <!-- A vue component inside of a angular component inside of a vue component -->
     <my-shell>
+      <p class="example-p">
+        This is content inside a 'shell' from vue
+      </p>
       <my-user-chip></my-user-chip>
       <ng-component ng-controller="ExampleController"></ng-component>
     </my-shell>
-
   </div>
   
   <!-- Setup Scripts -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.min.js"></script>
   <script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+  <script type="text/javascript">
+    // TODO: decide where to handle permitting these
+    // the ones with my- could be handled by making sure everything has dashes
+    // in commons 
+    window.Vue.config.ignoredElements = ['NG-COMPONENT', 'MY-USER-CHIP']
+  </script>
+
   <script src="node_modules/commons/dist/elements/src/commons-plugin/index.custom-elements.js"></script>
 
   <!-- Setup a sample angular 1.x app using commons -->
@@ -78,6 +88,11 @@
         $scope.increment = CounterService.increment
         $scope.decrement = CounterService.decrement
 
+        $scope.showContent = false;
+        $scope.toggleContent = function () {
+          $scope.showContent = !$scope.showContent;
+        }
+
         $scope.count = CounterService.getCount();
 
         CounterService.onCounterChange(function (count) {
@@ -90,7 +105,7 @@
         return {
           restrict: 'E',
           transclude: true,
-          templateUrl: 'other-component.html'
+          templateUrl: 'ng-component.html'
         }
       })
 
