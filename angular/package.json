@@ -5,12 +5,15 @@
   "main": "index.js",
   "scripts": {
     "start": "serve",
-    "postinstall": "npm link ../commons"
+    "webdriver": "webdriver-manager start",
+    "postinstall": "webdriver-manager update && npm link ../commons",
+    "test": "protractor protractor.conf.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "jasmine-spec-reporter": "^3.2.0",
+    "protractor": "^5.1.1",
     "serve": "^3.3.1",
     "vue-custom-element": "git+https://git@github.com/skiano/vue-custom-element.git"
   },
