@@ -1,8 +1,8 @@
 <template>
-  <div class="counter" id="super-counter">
-    <h2>{{title}}: {{count}}</h2>
-    <button @click="decrement">Decrement</button>
-    <button @click="increment">Increment</button>
+  <div class="counter">
+    <h2 class="vandv-counter-state">{{title}}: {{count}}</h2>
+    <button @click="decrement" class="vandv-counter-decrement">Decrement</button>
+    <button @click="increment" class="vandv-counter-increment">Increment</button>
   </div>
 </template>
 

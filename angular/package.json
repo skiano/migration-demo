@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "jasmine-spec-reporter": "^3.2.0",
     "serve": "^3.3.1",
     "vue-custom-element": "git+https://git@github.com/skiano/vue-custom-element.git"
   },
