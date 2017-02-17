@@ -58,7 +58,7 @@ cd angular/
 npm start
 
 ## in another terminal start test server
-webdriver-manager start
+npm run webdriver
 
 ## in another terminal
 npm test
