@@ -49,5 +49,19 @@ npm install
 ## run lite server
 npm start
 ```
+### running protractor tests
 
+```bash
+cd angular/
+
+## start lite server
+npm start
+
+## in another terminal start test server
+npm run webdriver
+
+## in another terminal
+npm test
+
+```
 
