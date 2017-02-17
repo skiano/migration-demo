@@ -5,6 +5,7 @@ import Modal from './Modal'
 import Login from './Login'
 import FilterPanel from './FilterPanel'
 import Counter from './Counter'
+import UserChip from './UserChip'
 
 export default [
   Shell,
@@ -13,5 +14,6 @@ export default [
   Modal,
   Login,
   FilterPanel,
-  Counter
+  Counter,
+  UserChip
 ]
