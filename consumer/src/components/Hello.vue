@@ -1,31 +1,28 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <filter-panel :options="options"></filter-panel>
-    <div class="reversal">
-      <button @click="reverseOptions">Reverse order</button>
-    </div>
+    <filter-panel></filter-panel>
+    <counter></counter>
+    <p>The count is: {{count}}</p>
+    <p>
+      Control from consumer app:
+      <button @click="decrement">Decrement</button>
+      <button @click="increment">Increment</button>
+    </p>
   </div>
 </template>
 
 <script>
-import { FilterPanel } from 'commons';
+import { mapState, mapActions } from 'vuex';
 
 export default {
   name: 'hello',
-  components: {
-    FilterPanel,
-  },
-  data() {
-    return {
-      msg: 'Consuming common components',
-      options: ['A', 'E', 'I', 'O', 'U'],
-    };
+  computed: {
+    ...mapState('commons', {
+      count: state => state.count,
+    }),
   },
   methods: {
-    reverseOptions() {
-      this.options = this.options.reverse();
-    },
+    ...mapActions('commons', ['increment', 'decrement']),
   },
 };
 </script>

@@ -14,9 +14,10 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
+    "commons": "file:../commons",
     "vue": "^2.1.10",
     "vue-router": "^2.2.0",
-    "commons": "latest"
+    "vuex": "^2.1.2"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.2",
