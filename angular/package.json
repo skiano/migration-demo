@@ -4,13 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "serve"
+    "start": "serve",
+    "postinstall": "npm link ../commons"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "serve": "^3.3.1",
-    "vue-custom-element": "^1.0.0"
+    "vue-custom-element": "git+https://git@github.com/skiano/vue-custom-element.git"
   },
   "dependencies": {
     "ngVue": "^0.4.0"

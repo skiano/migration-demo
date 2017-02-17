@@ -19,7 +19,7 @@
     "bulma": "^0.3.1",
     "vue": "^2.1.10",
     "vue-bulma-datepicker": "^1.2.3",
-    "vue-custom-element": "^1.0.0",
+    "vue-custom-element": "git+https://git@github.com/skiano/vue-custom-element.git",
     "vue-router": "^2.2.0",
     "vue-style-loader": "^2.0.0",
     "vuex": "^2.1.2"
