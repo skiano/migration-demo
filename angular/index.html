@@ -8,6 +8,10 @@
   <link rel="stylesheet" type="text/css" href="node_modules/commons/dist/elements/src/commons-plugin/index.custom-elements.css">
 
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.23.0/polyfill.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/document-register-element/1.3.0/document-register-element.js"></script>
+
 </head>
 <body>
   <div class="demo-wrap">
@@ -58,8 +62,8 @@
       * that blackboxes the vuex store
       *
       */
-    const CommonsSvcHelper = function () {
-      const ExposedCommonsStore = Vue.CommonStore;
+    var CommonsSvcHelper = function () {
+      var ExposedCommonsStore = Vue.CommonStore;
       return {
         increment: function () {
           ExposedCommonsStore.dispatch('commons/increment')
