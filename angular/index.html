@@ -2,28 +2,21 @@
 <html>
 <head>
   <title>Angular Integration</title>
-  <script src="https://unpkg.com/vue/dist/vue.js"></script>
-  <script src="node_modules/commons/dist/src/components/index.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.min.js"></script>
 
-  <link rel="stylesheet" type="text/css" href="style.css">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css">
-  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="node_modules/commons/dist/src/components/index.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="node_modules/commons/dist/src/commons-plugin/index.custom-elements.css">
 
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.min.js"></script>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="node_modules/commons/dist/src/commons-plugin/index.custom-elements.js"></script>
 </head>
 <body>
 
-  <!-- Using hybrid -->
-
-  <div ng-controller="Controller">
-    <other-component/>
-  </div>
-
-  <div ng-controller="Controller">
-    <button ng-click="toggleExample2()">Show / Hide</button>
-    <other-component ng-if="displayExample2"/>
-  </div>
+  <my-navigation></my-navigation>
+  <other-component></other-component>
 
   <script type="text/javascript">
 
@@ -31,58 +24,6 @@
 
     /** Setup an angular module */
     var module = angular.module('app', []);
-
-    /** Setup a controller */
-    module.controller('Controller', ['$scope', function($scope) {
-      function getRandomInt(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-      }
-
-      $scope.options = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').splice(0, getRandomInt(1, 26))
-      $scope.displayExample2 = true;
-
-      $scope.toggleExample2 = function () {
-        $scope.displayExample2 = !$scope.displayExample2;
-      }
-    }]);
-
-    /** Create wrapper around vue component */
-    module.directive('ngFilterPanel', function() {
-      return {
-        restrict: 'E',
-        scope: {
-          options: '='
-        },
-        link: function($scope, element) {
-          element.prepend('<filter-panel></filter-panel>');
-
-          var vm = new Vue({
-            el: 'filter-panel',
-            components: { FilterPanel: Commons.FilterPanel },
-            template: '<filter-panel :initialSelected="options" v-on:update="updateAngular"/>',
-            data: function () {
-              return {
-                options: $scope.options
-              }
-            },
-            methods: {
-              updateAngular: function(options) {
-                console.log(options)
-                $scope.$apply(function() {
-                  $scope.options = options;
-                });
-              }
-            }
-          });
-
-          /* cleanup */
-          element.on('$destroy', function() {
-            element.remove('<filter-panel></filter-panel>')
-            vm.$destroy();
-          });
-        }
-      }
-    });
 
     /** example consumer module */
     module.directive('otherComponent', function() {
@@ -92,33 +33,15 @@
       }
     });
 
+    /** Setup a controller */
+    module.controller('Controller', ['$scope', function($scope) {
+      
+    }]);    
+
     /** bootstap module */
     angular.bootstrap(document.body, ['app']);
   </script>
 
-  <script type="text/javascript">
-    /** helper junk */
-
-    function shuffle(array) {
-      var currentIndex = array.length, temporaryValue, randomIndex;
-
-      // While there remain elements to shuffle...
-      while (0 !== currentIndex) {
-
-        // Pick a remaining element...
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-
-        // And swap it with the current element.
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-      }
-
-      return array;
-    }
-
-    
-  </script>
+  
 </body>
 </html>
