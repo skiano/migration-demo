@@ -1,6 +1,8 @@
 <div class="example-wrapper">
   <p class="example-p">Transcluded content: <button ng-click="toggleContent()">Toggle</button></p>
-  <ng-transclude ng-if="showContent"></ng-transclude>
+  <div ng-if="showContent">
+    <ng-transclude></ng-transclude>
+  </div>
 
   <p>Angular directive content:</p>
   <my-counter title="{{title}}"></my-counter>

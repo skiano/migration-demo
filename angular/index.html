@@ -23,11 +23,17 @@
 
     <!-- A vue component inside of a angular component inside of a vue component -->
     <my-shell>
-      <p class="example-p">
-        This is content inside a 'shell' from vue
-      </p>
-      <my-user-chip></my-user-chip>
-      <ng-component ng-controller="ExampleController"></ng-component>
+      <div>
+        <p class="example-p">
+          This is content inside a 'shell' from vue
+        </p>
+        <ng-component ng-controller="ExampleController">
+          <!-- using a vue component inside an ngTransclude + ng-if -->
+          <my-user-chip></my-user-chip>
+        </ng-component>
+        <my-user-chip></my-user-chip>
+        <my-counter title="Inside Shell"></my-counter>
+      </div>
     </my-shell>
   </div>
   

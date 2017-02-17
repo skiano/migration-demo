@@ -39,10 +39,6 @@
         default: 'confirm'
       }
     },
-    data () {
-      return {
-      }
-    },
     methods: {
       close () {
         this.$emit('close')
