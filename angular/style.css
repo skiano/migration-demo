@@ -3,6 +3,11 @@
   width: 70%;
 }
 
+.example-wrapper {
+  border: 1px solid red;
+  padding: 20px;
+}
+
 .example-title {
   margin-bottom: 15px;
 }

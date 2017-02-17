@@ -11,12 +11,21 @@
 </head>
 <body>
   <div class="demo-wrap">
-
+    <my-navigation></my-navigation>
     <!-- Using commons directly in HTML -->
     <my-counter title="In Html"></my-counter>
 
     <!-- Using commons directly in an Angular 1.x app -->
-    <ng-component ng-controller="ExampleController"></ng-component>
+    <ng-component ng-controller="ExampleController">
+      <!-- using a vue component inside an ngTransclude -->
+      <my-user-chip></my-user-chip>
+    </ng-component>
+
+    <!-- A vue component inside of a angular component inside of a vue component -->
+    <my-shell>
+      <my-user-chip></my-user-chip>
+      <ng-component ng-controller="ExampleController"></ng-component>
+    </my-shell>
 
   </div>
   
@@ -80,6 +89,7 @@
       .directive('ngComponent', function() {
         return {
           restrict: 'E',
+          transclude: true,
           templateUrl: 'other-component.html'
         }
       })
