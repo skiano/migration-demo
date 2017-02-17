@@ -4,6 +4,7 @@ import Nav from './Nav'
 import Modal from './Modal'
 import Login from './Login'
 import FilterPanel from './FilterPanel'
+import Counter from './Counter'
 
 export default [
   Shell,
@@ -11,5 +12,6 @@ export default [
   Nav,
   Modal,
   Login,
-  FilterPanel
+  FilterPanel,
+  Counter
 ]

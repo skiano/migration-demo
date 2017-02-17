@@ -11,9 +11,28 @@ export default {
     user
   },
   state: {
-    isCommons: true
+    isCommons: true,
+    count: 0
   },
-  mutations: {},
-  actions: {},
+  mutations: {
+    increment (state) {
+      state.count += 1
+    },
+    decrement (state) {
+      state.count -= 1
+    }
+  },
+  actions: {
+    increment (context) {
+      setTimeout(() => {
+        context.commit('increment')
+      }, 1)
+    },
+    decrement (context) {
+      setTimeout(() => {
+        context.commit('decrement')
+      }, 1)
+    }
+  },
   getters: {}
 }

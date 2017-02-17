@@ -6,7 +6,7 @@
   "private": true,
   "main": "./dist/src/components/index.js",
   "scripts": {
-    "build:temp": "vue build src/commons-plugin/index.js --prod --lib Commons",
+    "build:plugin": "vue build src/commons-plugin/index.js --prod --lib Commons",
     "build:custom": "vue build src/commons-plugin/index.custom-elements.js --prod --lib CommonElements",
     "dev": "node build/dev-server.js",
     "build": "node build/build.js",
