@@ -15,8 +15,8 @@ function install (Vue) {
   })
 
   /** Register all public components */
-  components.forEach(c =>
-    Vue.customElement('my-' + c.name, c, { store }))
+  components.forEach(component =>
+    Vue.customElement('my-' + component.name, { store, ...component }))
 
   return store
 }
