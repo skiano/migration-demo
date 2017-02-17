@@ -8,40 +8,83 @@
   <link rel="stylesheet" type="text/css" href="node_modules/commons/dist/src/commons-plugin/index.custom-elements.css">
 
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+</head>
+<body>
+  <div class="demo-wrap">
 
+    <!-- Using commons directly in HTML -->
+    <my-counter title="In Html"></my-counter>
+
+    <!-- Using commons directly in an Angular 1.x app -->
+    <ng-component ng-controller="ExampleController"></ng-component>
+
+  </div>
+  
+  <!-- Setup Scripts -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.min.js"></script>
   <script src="https://unpkg.com/vue/dist/vue.js"></script>
   <script src="node_modules/commons/dist/src/commons-plugin/index.custom-elements.js"></script>
-</head>
-<body>
 
-  <my-navigation></my-navigation>
-  <other-component></other-component>
-
+  <!-- Setup a sample angular 1.x app using commons -->
   <script type="text/javascript">
-
-    /** Stub of angular + Vue */
-
-    /** Setup an angular module */
-    var module = angular.module('app', []);
-
-    /** example consumer module */
-    module.directive('otherComponent', function() {
+    /** 
+      * Commons provides a simple wrapper
+      * that can be turned into either ng1 or ng2 service
+      * that blackboxes the vuex store
+      *
+      */
+    const CommonsSvcHelper = function () {
+      const ExposedCommonsStore = Vue.CommonStore;
       return {
-        restrict: 'E',
-        templateUrl: 'other-component.html'
+        increment: function () {
+          ExposedCommonsStore.dispatch('commons/increment')
+        },
+        decrement: function () {
+          ExposedCommonsStore.dispatch('commons/decrement')
+        },
+        getCount: function () {
+          return ExposedCommonsStore.state.commons.count;
+        },
+        onCounterChange: function (cb) {
+          ExposedCommonsStore.watch(function (state) {
+            return state.commons.count;
+          }, function (value) {
+            cb(value);
+          })
+        }
       }
-    });
+    };
 
-    /** Setup a controller */
-    module.controller('Controller', ['$scope', function($scope) {
-      
-    }]);    
+    /**
+      * An angular 1.x app 
+      * can than inject the commons service
+      * without thinking about vuex mutations, state, and actions
+      */
+    angular.module('featureApp', [])
+      .service('CounterService', CommonsSvcHelper)
+      .controller('ExampleController', 
+        ['$scope', 'CounterService', function($scope, CounterService) {
 
-    /** bootstap module */
-    angular.bootstrap(document.body, ['app']);
+        $scope.title = "In Angular 1"
+        $scope.increment = CounterService.increment
+        $scope.decrement = CounterService.decrement
+
+        $scope.count = CounterService.getCount();
+
+        CounterService.onCounterChange(function (count) {
+          $scope.$apply(function () {
+            $scope.count = count;  
+          });
+        });
+      }])
+      .directive('ngComponent', function() {
+        return {
+          restrict: 'E',
+          templateUrl: 'other-component.html'
+        }
+      })
+
+    angular.bootstrap(document.body, ['featureApp']);
   </script>
-
-  
 </body>
 </html>

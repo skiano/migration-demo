@@ -1,5 +1,5 @@
 <template>
-  <div id="super-counter">
+  <div class="counter" id="super-counter">
     <h2>{{title}}: {{count}}</h2>
     <button @click="decrement">Decrement</button>
     <button @click="increment">Increment</button>
@@ -28,6 +28,14 @@
   }
 </script>
 
-<style type="text/css">
-  
+<style scoped>
+  .counter {
+    padding: 20px;
+    margin: 20px 0;
+    background: yellow;
+  }
+
+  h2 {
+    margin-bottom: 15px;
+  }
 </style>

@@ -1,9 +1,8 @@
-.example-wrapper {
+.demo-wrap {
   margin: 100px auto;
   width: 70%;
 }
 
-.example-control {
-  margin-top: 15px;
+.example-title {
+  margin-bottom: 15px;
 }
-
