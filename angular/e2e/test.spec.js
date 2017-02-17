@@ -1,7 +1,7 @@
 // spec.js
 describe('Protractor Demo App', function() {
   it('Should Increment', function() {
-    browser.get('http://localhost:3000/');
+    browser.driver.get('http://localhost:3000/');
 
     // var EC = protractor.ExpectedConditions;
     // Waits for the element with id 'abc' to be present on the dom.
@@ -16,20 +16,18 @@ describe('Protractor Demo App', function() {
     // click the first counter
     $$('.vandv-counter-increment').first().click()
 
-    $$('.vandv-counter-state').each(function (element, index) {
-      element.getText().then(function (text) {
-        switch (index) {
-          case (0):
-            expect(text).toEqual('In Html: 1')
-            break;
-          case (1):
-            expect(text).toEqual('In Angular 1: 1')
-            break;
-          case (2):
-            expect(text).toEqual('Manipulate Commons state from angular: 1')
-            break;
-        }
-      });
-    });
+    const counters = $$('.vandv-counter-state');
+
+    counters.get(0).getText(function (text) {
+      expect(text).toEqual('In Html: 1')
+    })
+
+    counters.get(1).getText(function (text) {
+      expect(text).toEqual('In Angular 1: 1')
+    })
+
+    counters.get(2).getText(function (text) {
+      expect(text).toEqual('Manipulate Commons state from angular: 1')
+    })
   });
 });
